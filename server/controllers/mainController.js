@@ -5,8 +5,9 @@ const client = yelp.client(
 );
 
 const mainController = {};
-
+// sup Anson and Daniel. Check this out 😮‍💨 lol. fart emoji haha 💩 lol
 mainController.getResults = (req, res, next) => {
+  const { term, categories, longitude, latitude } = req.body;
   client
     .search({
       term: 'Gym',
