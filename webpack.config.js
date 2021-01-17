@@ -11,10 +11,10 @@ module.exports = {
   devServer: {
     publicPath: '/dist/',
     proxy: {
-      '/': 'http://localhost:3000',
-      '/signup/**': 'http://localhost:3000',
-      '/login/**': 'http://localhost:3000',
-      '/favorites/**': 'http://localhost:3000',
+      '/': 'http://localhost:3030',
+      '/signup/**': 'http://localhost:3030',
+      '/login/**': 'http://localhost:3030',
+      '/favorites/**': 'http://localhost:3030',
     },
     hot: true,
   },

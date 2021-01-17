@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = 3030;
 
 // requiring routers here
 const apiRouter = require('./routes/api.js');
