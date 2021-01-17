@@ -1,0 +1,39 @@
+const path = require('path');
+const yelp = require('yelp-fusion');
+const client = yelp.client(
+  'C875dNRjWAzLaQgmC7nd_wO97JFWpg6PuDdI9mfVsru_cOTvyoouijdnEAQwW2rnVUJ5lELwswChXgQaOJpSNpLK4tK6Jr_Gi1xRtp3dWA2UZT7B7xYP5zDBmEYDYHYx'
+);
+
+const mainController = {};
+
+mainController.getResults = (req, res, next) => {
+  client
+    .search({
+      term: 'Gym',
+      categories: 'Fitness',
+      location: 'New York, NY',
+    })
+    .then((response) => {
+      // use reduce to take response object's array of businesses and reduce it down to 10, removing unneeded key-value pairs
+      const reducedResults = response.jsonBody.businesses.reduce(
+        (acc, cv, idx) => {
+          if (idx < 10) {
+            delete cv.alias;
+            delete cv.is_closed;
+            delete cv.transactions;
+            delete cv.price;
+            acc.push(cv);
+          }
+          return acc;
+        },
+        []
+      );
+      res.locals.results = reducedResults;
+      return next();
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+module.exports = mainController;
