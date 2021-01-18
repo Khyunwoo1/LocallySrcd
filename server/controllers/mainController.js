@@ -3,6 +3,7 @@ const yelp = require('yelp-fusion');
 const client = yelp.client(
   'C875dNRjWAzLaQgmC7nd_wO97JFWpg6PuDdI9mfVsru_cOTvyoouijdnEAQwW2rnVUJ5lELwswChXgQaOJpSNpLK4tK6Jr_Gi1xRtp3dWA2UZT7B7xYP5zDBmEYDYHYx'
 );
+const ClosedStores = require('../models/models.js');
 
 const mainController = {};
 // sup Anson and Daniel. Check this out 😮‍💨 lol. fart emoji haha 💩 lol
@@ -40,5 +41,35 @@ mainController.getResults = (req, res, next) => {
       console.log(e);
     });
 };
+
+mainController.getClosedStores = (req, res, next) => {
+  const { storeId } = req.body;
+
+  
+  
+
+}
+
+mainController.reportClosed = (req, res, next) => {
+
+  const { storeId } = req.body;
+
+  ClosedStores.create(
+    {
+      storeId: storeId
+    },
+    (err, newClosedStore) => {
+      if (err)
+        return next({
+          log: 'Error: Store Is Already Marked As Closed',
+          message: err,
+        });
+      const { storeId } = newClosedStore;
+      res.locals.closedStoreId = storeId;
+      return next();
+    }
+  );
+},
+
 
 module.exports = mainController;

@@ -17,6 +17,13 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   prefLocations: { type: Array, required: true },
 });
+const User = mongoose.model('user', UserSchema);
+
+const closedStoresSchema = new Schema({
+  storeId : { type: String, required: true, unique: true}
+})
+
+const ClosedStores = mongoose.model('closedStores', closedStoresSchema)
 
 userSchema.pre('save', function (next) {
   const user = this;
@@ -32,4 +39,7 @@ userSchema.pre('save', function (next) {
   });
 });
 
-module.exports = mongoose.model('users', userSchema);
+module.exports = {
+  User,
+  ClosedStores
+};
